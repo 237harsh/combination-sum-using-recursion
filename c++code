@@ -1,0 +1,44 @@
+class Solution {
+  public:
+   vector<vector<int> >an;
+ set<vector<int>>st;
+   void sum(int id,int t,vector<int>&v,vector<int> &arr)
+   {
+       
+       if(t==0)
+       {
+          
+           st.insert(v);
+           return;
+       }
+      
+       
+        for(int i=id;i<arr.size();i++)
+        {
+            if(i>id &&arr[i]==arr[i-1])continue;
+            if(arr[i]>t)break;
+            if(arr[i]<=t){
+            v.push_back(arr[i]);
+            sum(i,t-arr[i],v,arr);//sum(i+1,t-arr[i],v,arr);in-case we do nat want to repeate same element;
+            v.pop_back();
+            }
+            
+            
+        }
+
+       
+      
+   }
+    vector<vector<int> > combinationSum(vector<int> &A, int B) {
+        int n=A.size();
+        vector<int>v;
+        sort(A.begin(),A.end());
+        sum(0,B,v,A);
+       for(auto x:st)
+       {
+           an.push_back(x);
+       }
+         sort(an.begin(),an.end());
+        return an;
+    }
+};
